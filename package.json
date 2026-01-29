@@ -1,0 +1,16 @@
+{
+  "name": "nepenthe-site",
+  "version": "0.0.1",
+  "description": "Nepenthe's site.",
+  "homepage": "https://nepenthe.site",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "astro": "^5.16.15"
+  }
+}

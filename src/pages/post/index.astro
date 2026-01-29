@@ -1,0 +1,80 @@
+---
+import { SITE_DESCRIPTION, SITE_TITLE } from "@src/consts";
+import { getCollection } from "astro:content";
+import BaseHead from "@src/components/BaseHead.astro";
+import Header from "@src/components/Header.astro";
+import Footer from "@src/components/Footer.astro";
+
+const posts = (await getCollection('post')).filter((p) => !p.data.draft).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const hasPosts = posts.length > 0;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION}/>
+        <style>
+            .empty {
+				width: 960px;
+				max-width: calc(100% - 2em);
+				margin: 2rem auto;
+				padding: 2rem 1rem;
+				text-align: center;
+				color: rgb(var(--gray));
+				border: 1px dashed rgba(var(--gray), 0.5);
+				border-radius: 12px;
+			}
+			.empty .empty-title {
+				margin: 0 0 0.5rem 0;
+				color: rgb(var(--black));
+				font-weight: 600;
+			}
+			.empty .empty-subtitle {
+				margin: 0;
+			}
+            ul {
+                /* display: flex; */
+                list-style-type: disc;
+                margin: 0;
+                padding: 0;
+            }
+            @media (max-width: 720px) {
+                ul li {
+                    width: 100%;
+                }
+				.empty {
+					width: 100%;
+					margin: 1rem auto;
+				}
+			}
+        </style>
+    </head>
+    <body>
+        <Header/>
+        <main>
+            <section>
+                {
+                    hasPosts ? (
+                        <ul>
+                            {
+                                posts.map((post) => (
+                                    <li>
+                                        <a href={`/post/${post.id}/`}>
+                                            <h4>{post.data.title}</h4>
+                                        </a>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    ) : (
+                        <div class="empty" aria-live="polite" role="status">
+							<p class="empty-title">No posts yet.</p>
+							<p class="empty-subtitle">Please check back later.</p>
+						</div>
+                    )
+                }
+            </section>
+        </main>
+        <Footer/>
+    </body>
+</html>

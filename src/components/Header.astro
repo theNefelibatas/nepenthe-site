@@ -1,0 +1,42 @@
+---
+import { SITE_TITLE } from "@src/consts"
+import HeaderLink from "@src/components/HeaderLink.astro"
+---
+
+<header>
+    <nav>
+        <h3><a href="/">{SITE_TITLE}</a></h3>
+        <div>
+            <HeaderLink href="/">Home</HeaderLink>
+            <HeaderLink href="/post">Post</HeaderLink>
+        </div>
+    </nav>
+</header>
+<style>
+    header {
+        padding: 0em 1em;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: white;
+        box-shadow: 0px 2px 8px rgba(var(--black), 5%); /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影颜色 */
+    }
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    nav a {
+        padding: 1em 0.5em;
+        color: var(--black);
+        border-bottom: 4px solid transparent;
+        text-decoration: none;
+    }
+    nav a.active {
+        border-bottom-color: var(--accent);
+        text-decoration: none;
+    }
+    @media (max-width: 720px) {
+
+    }
+</style>
